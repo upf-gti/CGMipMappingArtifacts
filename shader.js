@@ -7,7 +7,7 @@
 
 
 
-// Use VS plugin "Comment tagged templates" and add /* glsl */
+// Use VS plugin "glsl-literal" and add /* glsl */
 export const myVertShader = /* glsl */ `
 
 #define PI 3.141592653589793
@@ -19,6 +19,7 @@ uniform vec3 u_cameraGridPosition;
 uniform vec2 u_cameraViewportScale;
 
 varying vec3 v_normal;
+varying vec3 v_position;
 
 void main() {
     // Buffer geometry
@@ -77,6 +78,8 @@ void main() {
     // Screen space position
     //gl_Position = projectionMatrix * modelViewMatrix * vec4(intersectionPoint, 1.0); // Position on the XZ plane
     //gl_Position = projectionMatrix * modelViewMatrix * vec4(vec3(posFrontCamera), 1.0); // Position in front of the camera
+    intersectionPoint.y = 0.5;
+    v_position = intersectionPoint;
     gl_Position = projectionMatrix * viewMatrix * vec4(intersectionPoint, 1.0);
     //gl_Position = projectionMatrix * viewMatrix * vec4(worldPosition, 1.0);
     //gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); // Default geometry
@@ -94,13 +97,29 @@ precision lowp float;
 // viewMatrix
 
 varying vec3 v_normal;
+varying vec3 v_position;
 
 
 void main() {
 
 
     // Output color
-    gl_FragColor = vec4(((v_normal + 1.0) * 0.5), 0.7);
+    //gl_FragColor = vec4(((v_normal + 1.0) * 0.5), 0.7);
+
+
+    int x = int(floor(v_position.x / 2.0));
+    int y = int(floor(v_position.z / 2.0));
+    int checker = (x + y) % 2;
+
+    float alpha = 1.0;
+    
+    
+    if (checker == 0) {
+        gl_FragColor = vec4(1.0, 0.0, 0.0, alpha); // Red
+    } else {
+        gl_FragColor = vec4(0.0, 1.0, 0.0, alpha); // Green
+    }
+
     //gl_FragColor = vec4(1.0, 1.0, 0.0, 0.7);
 }
 `

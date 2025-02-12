@@ -1,7 +1,7 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'https://threejs.org/examples/jsm/controls/OrbitControls.js';
+import { OrbitControls } from './lib/three.js/examples/OrbitControls.js';//'https://threejs.org/examples/jsm/controls/OrbitControls.js';
 
-import {myVertShader, myFragShader} from '/OceanGrid/shader.js';
+import {myVertShader, myFragShader} from './shader.js';
 
 
 // Debuggin global variables
@@ -146,7 +146,7 @@ for (let i = 0; i < divisions * divisions - 1; i++){
   // Avoid modifying sides of the plane
   if (x != Math.abs(size/2) && y != Math.abs(size/2)){
     let step = 0.5 * size/divisions;
-    let randNum = (Math.random() - 1) * 2;
+    let randNum = 0//(Math.random() - 1) * 2;
     vertices[i*3] = x + randNum * step;
     vertices[i*3 + 1] = y + randNum * step / extraYsubdivisionFactor; // More divisions in this axis
   }
@@ -465,7 +465,7 @@ function updateObjectMatrixAccordingToCamera(node, inCam){
 function updateUniforms(){
   cameraGrid.updateMatrix();
 
-  gpuGrid.material.uniforms.u_time.value = new Date().getTime() - time;
+  gpuGrid.material.uniforms.u_time.value = 0//new Date().getTime() - time;
   gpuGrid.material.uniforms.u_time.uniformsNeedUpdate = true;
 
   gpuGrid.material.uniforms.u_cameraModelMatrix.value = cameraGrid.matrix;
