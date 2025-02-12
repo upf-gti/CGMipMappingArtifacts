@@ -1,4 +1,6 @@
-# OceanGrid
+# Mip mapping and texture aliasing artifacts
 Grid that adapts according to the camera position and perspective according to http://habib.wikidot.com/projected-grid-ocean-shader-full-html-version
 
-Go to live demo: https://gerardllorach.github.io/OceanGrid/
+This repository is published as a page using the branch mipmappingartifacts.
+
+Go to live demo: https://upf-gti.github.io/CGMipMappingArtifacts/
